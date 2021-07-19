@@ -27,7 +27,7 @@
         "symfony/dependency-injection": "^3.4 || ^4.0",
         "symfony/framework-bundle": "^3.4 || ^4.0",
         "symfony/twig-bundle": "^3.4 || ^4.0",
-        "zendframework/zend-mime": "2.1.*"
+        "laminas/laminas-mime": "^2.8"
     },
     "replace": {
         "besimple/soap-bundle": "self.version",
