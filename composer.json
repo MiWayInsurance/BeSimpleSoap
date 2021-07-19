@@ -24,8 +24,8 @@
         "ext-soap": "*",
         "ext-curl": "*",
         "ass/xmlsecurity": "~1.0",
-        "symfony/dependency-injection": "^3.4 || ^4.0",
-        "symfony/framework-bundle": "^3.4 || ^4.0",
+        "symfony/dependency-injection": "^3.4 || ^4.1.12",
+        "symfony/framework-bundle": "^3.4 || ^4.1.12",
         "symfony/twig-bundle": "^3.4 || ^4.0",
         "laminas/laminas-mime": "^2.8"
     },
