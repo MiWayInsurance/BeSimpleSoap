@@ -38,7 +38,7 @@
     },
     "require-dev": {
         "ext-mcrypt": "*",
-        "mikey179/vfsStream": "~1.0",
+        "mikey179/vfsstream": "~1.0",
         "symfony/form": "^3.4 || ^4.0",
         "symfony/process": "^3.4 || ^4.0",
         "symfony/console": "^3.4 || ^4.0",
