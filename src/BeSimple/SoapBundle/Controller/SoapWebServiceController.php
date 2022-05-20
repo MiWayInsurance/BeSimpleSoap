@@ -16,10 +16,11 @@ use BeSimple\SoapBundle\Handler\ExceptionHandler;
 use BeSimple\SoapBundle\Soap\SoapRequest;
 use BeSimple\SoapBundle\Soap\SoapResponse;
 use BeSimple\SoapServer\SoapServerBuilder;
+use ProxyManager\Factory\RemoteObject\Adapter\Soap;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpKernel\Exception\FlattenException;
+use Symfony\Component\Debug\Exception\FlattenException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
 use Symfony\Component\HttpKernel\Log\DebugLoggerInterface;
@@ -56,6 +57,11 @@ class SoapWebServiceController extends Controller
      */
     private $headers = array();
 
+    public function __construct(SoapResponse $soapResponse)
+    {
+        $this->soapResponse = $soapResponse;
+    }
+
     /**
      * @return \BeSimple\SoapBundle\Soap\SoapResponse
      */
@@ -76,7 +82,7 @@ class SoapWebServiceController extends Controller
         ob_start();
         $this->soapServer->handle($this->soapRequest->getSoapMessage());
 
-        $response = $this->getResponse();
+        $response = $this->soapResponse;
         $response->setContent(ob_get_clean());
 
         // The Symfony 2.0 Response::setContent() does not return the Response instance

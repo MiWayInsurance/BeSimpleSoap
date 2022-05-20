@@ -4,7 +4,6 @@
     xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
     <parameters>
-        <parameter key="besimple.soap.response.class">BeSimple\SoapBundle\Soap\SoapResponse</parameter>
         <parameter key="besimple.soap.response.listener.class">BeSimple\SoapBundle\EventListener\SoapResponseListener</parameter>
         <parameter key="besimple.soap.exception_listener.class">BeSimple\SoapBundle\EventListener\SoapExceptionListener</parameter>
         <parameter key="besimple.soap.context.class">BeSimple\SoapBundle\WebServiceContext</parameter>
@@ -19,7 +18,14 @@
     </parameters>
 
     <services>
-        <service id="besimple.soap.response" class="%besimple.soap.response.class%" />
+        <defaults autowire="true" autoconfigure="true" />
+        <service id="besimple.soap.response" class="BeSimple\SoapBundle\Soap\SoapResponse" />
+        <service id="BeSimple\SoapBundle\Soap\SoapResponse" alias="besimple.soap.response" />
+
+        <service id="BeSimple\SoapBundle\Controller\SoapWebServiceController">
+            <tag name="controller.service_arguments"/>
+            <bind key="$soapResponse" type="service" id="BeSimple\SoapBundle\Soap\SoapResponse" />
+        </service>
 
         <service id="besimple.soap.response.listener" class="%besimple.soap.response.listener.class%">
             <tag name="kernel.event_listener" event="kernel.view" method="onKernelView" />
