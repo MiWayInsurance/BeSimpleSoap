@@ -45,8 +45,12 @@ jobs:
     - name: Install dependencies
       run: composer update --prefer-dist --no-progress --ansi --no-interaction
 
-    - name: Run Pre-test scripts
+    - name: get Working dir
       run: pwd
+      
+    - name: get Github Runner Dir
+      run: echo ${GITHUB_WORKSPACE} 
+      shell: bash
       
     - name: PHPUnit Tests 
       uses: php-actions/phpunit@v3
