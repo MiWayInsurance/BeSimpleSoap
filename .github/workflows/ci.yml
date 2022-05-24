@@ -47,5 +47,7 @@ jobs:
     - name: PHPUnit Tests 
       uses: php-actions/phpunit@v3
       with:
+        bootstrap: vendor/autoload.php
         configuration: phpunit.dist.xml
         memory_limit: 256M
+        args: --coverage-text
