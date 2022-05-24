@@ -49,7 +49,7 @@ jobs:
       run: pwd
       
     - name: get Github Runner Dir
-      run: echo ${GITHUB_WORKSPACE} 
+      run: ls -la ${GITHUB_WORKSPACE}
       shell: bash
       
     - name: PHPUnit Tests 
