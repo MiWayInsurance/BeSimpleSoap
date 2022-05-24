@@ -18,7 +18,6 @@
     </parameters>
 
     <services>
-        <defaults autowire="true" autoconfigure="true" />
         <service id="besimple.soap.response" class="BeSimple\SoapBundle\Soap\SoapResponse" />
         <service id="BeSimple\SoapBundle\Soap\SoapResponse" alias="besimple.soap.response" />
 
