@@ -46,7 +46,7 @@ jobs:
       run: composer update --prefer-dist --no-progress --ansi --no-interaction
 
     - name: Run Pre-test scripts
-      run: echo pwd
+      run: pwd
       
     - name: PHPUnit Tests 
       uses: php-actions/phpunit@v3
