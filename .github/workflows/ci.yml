@@ -49,7 +49,7 @@ jobs:
       run: pwd
       
     - name: get Github Runner Dir
-      run: ls -la ${GITHUB_WORKSPACE}
+      run: "${GITHUB_WORKSPACE}/src/BeSimple/SoapClient/Tests/bin/axis.sh"
       shell: bash
       
     - name: PHPUnit Tests 
