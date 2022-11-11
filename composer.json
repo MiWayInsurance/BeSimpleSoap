@@ -27,6 +27,7 @@
         "symfony/dependency-injection": "^3.4 || ^4.1.12",
         "symfony/framework-bundle": "^3.4 || ^4.1.12",
         "symfony/twig-bundle": "^3.4 || ^4.0",
+        "symfony/error-handler": "^4.4",
         "laminas/laminas-mime": "^2.1"
     },
     "replace": {
