@@ -1,0 +1,54 @@
+name: BeSimple Unit Tests
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+
+    runs-on: ubuntu-20.04
+    strategy:
+      matrix:
+        php: ['7.2']
+
+    steps:
+    - uses: actions/checkout@v3
+
+    - uses: shivammathur/setup-php@v2
+      with:
+        php-version: ${{ matrix.php }}
+        extensions: mcrypt
+        coverage: xdebug
+
+    - name: Cache Composer packages
+      id: composer-cache
+      uses: actions/cache@v3
+      with:
+        path: vendor
+        key: ${{ runner.os }}-php-${{ hashFiles('**/composer.lock') }}
+        restore-keys: |
+          ${{ runner.os }}-php-
+
+    - name: Install dependencies
+      run: composer update --ansi --no-interaction --no-scripts --no-progress --prefer-dist
+      
+    - name: Start WebServer
+      run: "${GITHUB_WORKSPACE}/src/BeSimple/SoapClient/Tests/bin/axis.sh"
+      shell: bash
+      
+    - name: PHPUnit Tests 
+      uses: php-actions/phpunit@v2
+      env:
+        TEST_NAME: Scarlett
+      with:
+        bootstrap: vendor/autoload.php
+        configuration: phpunit.xml.dist
+        memory_limit: 256M
+        args: --coverage-text
+        php_version: ${{ matrix.php }}
