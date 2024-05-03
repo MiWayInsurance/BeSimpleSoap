@@ -14,7 +14,7 @@ namespace BeSimple\SoapBundle\EventListener;
 
 use BeSimple\SoapBundle\Soap\SoapRequest;
 use BeSimple\SoapBundle\Soap\SoapResponse;
-use Symfony\Component\HttpKernel\Event\GetResponseForControllerResultEvent;
+use Symfony\Component\HttpKernel\Event\ViewEvent;
 
 /**
  * SoapResponseListener.
@@ -41,9 +41,9 @@ class SoapResponseListener
     /**
      * Set the controller result in SoapResponse.
      *
-     * @param GetResponseForControllerResultEvent $event A GetResponseForControllerResultEvent instance
+     * @param ViewEvent $event A GetResponseForControllerResultEvent instance
      */
-    public function onKernelView(GetResponseForControllerResultEvent $event)
+    public function onKernelView(ViewEvent $event)
     {
         $request = $event->getRequest();
         if (!$request instanceof SoapRequest) {

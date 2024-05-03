@@ -34,9 +34,9 @@ Using client
 
     namespace Acme\DemoBundle\Controller;
 
-    use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+    use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
-    class DemoController extends Controller
+    class DemoController extends AbstractController
     {
         public function helloAction($name)
         {
@@ -110,9 +110,9 @@ Usage
     namespace Acme\DemoBundle\Controller;
 
     use Acme\DemoBundle\Api\UserApi;
-    use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+    use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
-    class DemoController extends Controller
+    class DemoController extends AbstractController
     {
         public function userAction($username)
         {

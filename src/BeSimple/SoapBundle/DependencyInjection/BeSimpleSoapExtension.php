@@ -32,13 +32,13 @@ class BeSimpleSoapExtension extends Extension
 {
     // maps config options to service suffix
     private $bindingConfigToServiceSuffixMap = array(
-        'rpc-literal'      => 'rpcliteral',
+        'rpc-literal' => 'rpcliteral',
         'document-wrapped' => 'documentwrapped',
     );
 
     public function load(array $configs, ContainerBuilder $container)
     {
-        $loader = new XmlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
+        $loader = new XmlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));
 
         $loader->load('request.xml');
 
@@ -49,7 +49,7 @@ class BeSimpleSoapExtension extends Extension
         $processor     = new Processor();
         $configuration = new Configuration();
 
-        $config = $processor->process($configuration->getConfigTree(), $configs);
+        $config = $processor->process($configuration->getConfigTreeBuilder()->buildTree(), $configs);
 
         $this->registerCacheConfiguration($config['cache'], $container, $loader);
 
@@ -74,7 +74,7 @@ class BeSimpleSoapExtension extends Extension
         $config['type'] = $this->getCacheType($config['type']);
 
         foreach (array('type', 'lifetime', 'limit') as $key) {
-            $container->setParameter('besimple.soap.cache.'.$key, $config[$key]);
+            $container->setParameter('besimple.soap.cache.' . $key, $config[$key]);
         }
     }
 
@@ -83,14 +83,14 @@ class BeSimpleSoapExtension extends Extension
         $loader->load('client.xml');
 
         foreach ($config as $client => $options) {
-            $definition = new DefinitionDecorator('besimple.soap.client.builder');
+            $definition = new ChildDefinition('besimple.soap.client.builder');
             $container->setDefinition(sprintf('besimple.soap.client.builder.%s', $client), $definition);
 
             $definition->replaceArgument(0, $options['wsdl']);
 
             $defOptions = $container
-                    ->getDefinition('besimple.soap.client.builder')
-                    ->getArgument(1);
+                ->getDefinition('besimple.soap.client.builder')
+                ->getArgument(1);
 
             foreach (array('cache_type', 'user_agent') as $key) {
                 if (isset($options[$key])) {
@@ -130,7 +130,7 @@ class BeSimpleSoapExtension extends Extension
 
     private function createClientClassmap($client, array $classmap, ContainerBuilder $container)
     {
-        $definition = new DefinitionDecorator('besimple.soap.classmap');
+        $definition = new ChildDefinition('besimple.soap.classmap');
         $container->setDefinition(sprintf('besimple.soap.classmap.%s', $client), $definition);
 
         if (!empty($classmap)) {
@@ -144,7 +144,7 @@ class BeSimpleSoapExtension extends Extension
 
     private function createClient($client, ContainerBuilder $container)
     {
-        $definition = new DefinitionDecorator('besimple.soap.client');
+        $definition = new ChildDefinition('besimple.soap.client');
         $container->setDefinition(sprintf('besimple.soap.client.%s', $client), $definition);
 
         $definition->setFactory(array(
@@ -168,7 +168,7 @@ class BeSimpleSoapExtension extends Extension
         }
 
         $options = $container
-            ->getDefinition('besimple.soap.context.'.$bindingSuffix)
+            ->getDefinition('besimple.soap.context.' . $bindingSuffix)
             ->getArgument(2);
 
         $definition->replaceArgument(2, array_merge($options, $config));
