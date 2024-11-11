@@ -41,7 +41,7 @@ class AnnotationFileLoader extends FileLoader
             throw new \RuntimeException('The Tokenizer extension is required for the routing annotation loaders.');
         }
 
-        parent::__construct($locator, $paths);
+        parent::__construct($locator);
 
         $this->loader = $loader;
     }
