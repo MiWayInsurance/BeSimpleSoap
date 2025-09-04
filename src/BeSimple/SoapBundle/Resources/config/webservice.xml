@@ -24,6 +24,9 @@
         <service id="BeSimple\SoapBundle\Controller\SoapWebServiceController">
             <tag name="controller.service_arguments"/>
             <bind key="$soapResponse" type="service" id="BeSimple\SoapBundle\Soap\SoapResponse" />
+            <call method="setContainer">
+                <argument type="service" id="service_container" on-invalid="ignore" />
+            </call>
         </service>
 
         <service id="besimple.soap.response.listener" class="%besimple.soap.response.listener.class%">

@@ -16,7 +16,7 @@ use BeSimple\SoapBundle\Handler\ExceptionHandler;
 use BeSimple\SoapBundle\Soap\SoapRequest;
 use BeSimple\SoapBundle\Soap\SoapResponse;
 use BeSimple\SoapServer\SoapServerBuilder;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\ErrorHandler\Exception\FlattenException;
@@ -29,7 +29,7 @@ use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
  * @author Christian Kerl <christian-kerl@web.de>
  * @author Francis Besset <francis.besset@gmail.com>
  */
-class SoapWebServiceController extends Controller
+class SoapWebServiceController extends AbstractController
 {
     /**
      * @var \SoapServer
@@ -123,7 +123,7 @@ class SoapWebServiceController extends Controller
     public function exceptionAction(Request $request, FlattenException $exception, DebugLoggerInterface $logger = null)
     {
         if (!$webservice = $request->query->get('_besimple_soap_webservice')) {
-            throw new \LogicException(sprintf('The parameter "%s" is required in Request::$query parameter bag to generate the SoapFault.', '_besimple_soap_webservice'), null, $e);
+            throw new \LogicException(sprintf('The parameter "%s" is required in Request::$query parameter bag to generate the SoapFault.', '_besimple_soap_webservice'), null);
         }
 
         $view = 'TwigBundle:Exception:'.($this->container->get('kernel')->isDebug() ? 'exception' : 'error').'.txt.twig';
@@ -231,7 +231,7 @@ class SoapWebServiceController extends Controller
      *
      * @return \BeSimple\SoapBundle\Soap\SoapResponse A valid SoapResponse
      *
-     * @throws InvalidArgumentException If the given Response is not an instance of SoapResponse
+     * @throws \InvalidArgumentException If the given Response is not an instance of SoapResponse
      */
     protected function setResponse(Response $response)
     {
